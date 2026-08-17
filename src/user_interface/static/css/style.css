@@ -1,0 +1,571 @@
+/*
+   style.css
+*/
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff;
+    color: #e8edf5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* App Container */
+.app-container {
+    max-width: 1400px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 0px;
+    padding: 28px 32px;
+    border: 1px solid #ff6f00;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #ff6f00;
+}
+
+.app-header h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #ff6a00, #ff5900);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Panels */
+.panel {
+    background: #ffffff;
+    border-radius: 0px;
+    padding: 20px 24px;
+    border: 1px solid #ff6f00;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.panel h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+}
+
+/* Main Grid, Three rows, two columns */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    gap: 24px;
+}
+
+/* Simulation Parameters Panel (Row 1, Column 1) */
+.parameters-panel {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    min-height: 320px;
+    align-self: start;
+}
+
+/* Time Step Schedule (Metrics Panel) Row 2, Column 1 */
+.metrics-panel {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    min-height: 200px;
+    align-self: start;
+}
+
+/* Vehicle Intersection Control Panel Row 1-2, Column 2 */
+.controls-panel {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;                /* Spans both rows to fill the right column */
+    min-height: 500px;
+    align-self: start;
+}
+
+/* Plots Panel, Full width, Row 3 */
+.plots-panel {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+/* Parameters */
+.parameter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.param-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.param-item label {
+    flex: 0 0 180px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #000000;
+}
+
+.param-item input {
+    flex: 1;
+    min-width: 80px;
+    background: #ffffff;
+    border: 1px solid #ff6f00;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #000000;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: border 0.2s;
+}
+
+.param-item input:focus {
+    outline: none;
+    border-color: #10e40c;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+.param-unit {
+    font-size: 0.75rem;
+    color: #000000;
+    min-width: 30px;
+}
+
+/* Controls Panel */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #def603;
+    color: #b0c7e0;
+    border: 1px solid #4e4a2a;
+    flex: 1 1 auto;
+    min-width: 130px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-cbs {
+    background: #ff6f00;
+    border-color: #3a8ab8;
+    color: #ffffff;
+}
+.btn-cbs:hover {
+    background: #06c003;
+    border-color: #3a8ab8;
+}
+
+.btn-qmix {
+    background: #ff6f00;
+    border-color: #3a8ab8;
+    color: #ffffff;
+}
+.btn-qmix:hover {
+    background: #06c003;
+    border-color: #3a8ab8;
+}
+
+.btn-hybrid {
+    background: #ff6f00;
+    border-color: #3a8ab8;
+    color: #ffffff;
+}
+.btn-hybrid:hover {
+    background: #06c003;
+    border-color: #3a8ab8;
+    color: #ffffff;
+}
+
+.btn-plots {
+    background: #ff6f00;
+    border-color: #3a8ab8;
+    color: #ffffff;
+}
+
+.btn-plots:hover {
+    background: #06c003;
+    border-color: #3a8ab8;
+}
+
+/* Status and Progress */
+.status-box {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border: 1px solid #ff6f00;
+}
+
+.status-label {
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+.status-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #06c003;
+}
+
+.progress-container {
+    background: #ffffff;
+    border-radius: 20px;
+    height: 6px;
+    overflow: hidden;
+    border: 1px solid #ff6f00;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0073ff, #06c003);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+/* Grid Visualisation */
+.grid-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #ff6f00;
+    margin-bottom: 16px;
+}
+
+#grid-canvas {
+    background: #f0f0f0;
+    border-radius: 8px;
+    border: 1px solid #dddddd;
+    width: 100%;
+    height: 260px;
+}
+
+.grid-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #000000;
+}
+
+.grid-legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Schedule Display */
+.schedule-display {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 1px solid #ff6f00;
+    max-height: 330px;
+    overflow-y: auto;
+    font-size: 0.75rem;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+.schedule-display table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-display th {
+    text-align: left;
+    background: #f5f5f5;
+    padding: 4px 6px;
+    border-bottom: 2px solid #ff6f00;
+}
+
+.schedule-display td {
+    padding: 3px 6px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.schedule-display td:first-child {
+    font-weight: 600;
+}
+
+/* Metrics */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.metric-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    border: 1px solid #ff6f00;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* Plots */
+.plots-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.plot-container {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid #ff6f00;
+}
+
+.plot-container canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.plot-caption {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #000000;
+    margin-top: 8px;
+}
+
+/* Plot Controls Bar */
+.plot-controls-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px 32px;
+    background: #ffffff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 1px solid #ff6f00;
+    margin-bottom: 20px;
+}
+
+.plot-control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.plot-control-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #000000; 
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.plot-select {
+    background: #ff6f00;
+    border: 1px solid #3a8ab8;
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: #e8edf5;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    min-width: 140px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a7f9f' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.plot-select:hover {
+    border-color: #43ca00;
+}
+
+.plot-select:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(255, 83, 83, 0.15);
+}
+
+.plot-select option {
+    background: #1b232d;
+    color: #e8edf5;
+    padding: 6px 10px;
+}
+
+/* Footer */
+.app-footer {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid #ff6f00;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #ff6f00;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+    .parameters-panel,
+    .metrics-panel,
+    .controls-panel,
+    .plots-panel {
+        grid-column: 1 / 2;
+        grid-row: auto;
+    }
+    .controls-panel {
+        grid-row: auto;
+    }
+    .plots-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-container {
+        padding: 16px;
+    }
+    .param-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .param-item label {
+        flex: 1;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    .grid-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .plot-controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .plot-control-group {
+        flex-wrap: wrap;
+    }
+    .plot-select {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+.plot-controls-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    padding: 10px;
+    background: #ffffff
+}
+
+/* Main Flex Container */
+.main-flex {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* Stacks Parameters and Metrics vertically */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1 1 40%;       
+    min-width: 280px;
+}
+
+/* Right Column, Controls Panel */
+.controls-panel {
+    flex: 1 1 60%;          
+    min-height: 500px;     
+    align-self: start;     
+}
+
+/* Plots Panel, full width*/
+.plots-panel {
+    width: 100%;
+}
+
+/* Removes old grid-related properties for these panels */
+.parameters-panel,
+.metrics-panel,
+.controls-panel,
+.plots-panel {
+    grid-column: unset;
+    grid-row: unset;
+}
+
+.parameters-panel,
+.metrics-panel {
+    width: 100%;
+    box-sizing: border-box;
+}

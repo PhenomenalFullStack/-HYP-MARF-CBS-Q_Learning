@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Navigation System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .toggle-switch {
+            --toggle-width: 178px;
+            --toggle-height: 30px;
+            position: relative;
+            display: inline-block;
+            width: var(--toggle-width);
+            height: var(--toggle-height);
+            vertical-align: middle;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            background-color: #ccc;
+            border-radius: var(--toggle-height);
+            transition: background-color 0.2s ease;
+        }
+        .toggle-slider::before {
+            content: "";
+            position: absolute;
+            height: calc(var(--toggle-height) - 6px);
+            width: calc(var(--toggle-height) - 6px);
+            left: 3px;
+            bottom: 3px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .toggle-switch input:checked+.toggle-slider {
+            background-color: #ff0000;
+        }
+        .toggle-switch input:checked+.toggle-slider::before {
+            transform: translateX(calc(var(--toggle-width) - var(--toggle-height)));
+        }
+        .toggle-switch input:focus-visible+.toggle-slider {
+            outline: 2px solid #333333;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <header class="app-header">
+            <h1>Autonomous Navigation System</h1>
+        </header>
+
+        <!-- Main content: flex row for left/right columns -->
+        <div class="main-flex">
+
+            <!-- Left column: Parameters + Metrics (stacked) -->
+            <div class="left-column">
+                <!-- Parameters Panel -->
+                <section class="panel parameters-panel">
+                    <h2>Simulation Parameters</h2>
+                    <div class="parameter-group">
+
+                        <div class="param-item">
+                            <label for="num_vehicles">Number of Autonomous Vehicles</label>
+                            <input type="number" id="num_vehicles" value="5" min="1" max="8">
+                        </div>
+
+                        <div class="param-item">
+                            <label for="sensor_noise_toggle">Sensor noise</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="sensor_noise_toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="param-item">
+                            <label for="braking_delay">Braking delay probability</label>
+                            <input type="number" id="braking_delay" value="0.0" step="0.1" min="0" max="0.5">
+                        </div>
+
+                        <div class="param-item">
+                            <label for="comm_latency">Communication latency</label>
+                            <input type="number" id="comm_latency" value="0.0" step="0.1" min="0" max="0.5">
+                        </div>
+
+                        <div class="param-item">
+                            <label for="deviation_threshold">Deviation threshold</label>
+                            <input type="number" id="deviation_threshold" value="2" step="0.5" min="1" max="5">
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Metrics Panel -->
+                <section class="panel metrics-panel">
+                    <h2>Time Step Schedule</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Collisions</span>
+                            <span class="metric-value" id="collisions-count">0</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">CBS Replans Triggered</span>
+                            <span class="metric-value" id="replans-count">0</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Total Time Steps</span>
+                            <span class="metric-value" id="time-steps-count">0</span>
+                        </div>
+                    </div>
+                </section>
+            </div> <!-- end left-column -->
+
+            <!-- Right column: Controls Panel -->
+            <section class="panel controls-panel">
+                <h2>Vehicle Intersection Control</h2>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button class="btn btn-cbs" id="run-cbs">Run Baseline Global Planner</button>
+                    <button class="btn btn-hybrid" id="run-hybrid">Run Hybrid CBS &amp; QLearning</button>
+                </div>
+
+                <!-- Grid Visualisation -->
+                <div class="grid-container">
+                    <canvas id="grid-canvas" width="300" height="300"></canvas>
+                    <div class="grid-legend"></div>
+                </div>
+
+                <!-- Status: Vehicles Reached Goal -->
+                <div class="status-box">
+                    <span class="status-label">Vehicles reached their goal:</span>
+                    <span class="status-value" id="vehicles-reached">0 / 4</span>
+                </div>
+
+                <!-- Schedule Display -->
+                <div class="schedule-display" id="schedule-display">
+                    <p style="color: #666; text-align: center;">Run CBS to see schedule</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar" style="width:0%;"></div>
+                </div>
+            </section>
+
+        </div> <!-- end main-flex -->
+
+        <!-- Full‑width Plots Panel -->
+        <section class="panel plots-panel">
+            <h2>Performance Plots</h2>
+
+            <!-- Dropdown Controls -->
+            <div class="plot-controls-bar">
+
+                <div class="plot-control-group">
+                    <label for="metric1">Metric 1:</label>
+                    <select id="metric1" class="plot-select">
+                        <option value="cbs">MAPF - CBS</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="replans">Number of Replans</option>
+                    </select>
+                </div>
+
+                <div class="plot-control-group">
+                    <label for="metric2">Metric 2:</label>
+                    <select id="metric2" class="plot-select">
+                        <option value="collisions">Number of Collisions</option>
+                        <option value="timesteps">Number of Time Steps</option>
+                        <option value="delay">Average Delay</option>
+                    </select>
+                </div>
+
+                <div class="plot-control-group">
+                    <label for="chartType">Chart Type:</label>
+                    <select id="chartType" class="plot-select">
+                        <option value="bar">Bar Chart</option>
+                        <option value="line">Line Chart</option>
+                        <option value="scatter">Scatter Plot</option>
+                        <option value="pie">Pie Chart</option>
+                    </select>
+                </div>
+                <div class="plot-control-group">
+                    <button class="btn btn-plots" id="generate_plots">Generate Chart</button>
+                </div>
+
+            </div>
+
+            <!-- Chart Canvases -->
+            <div class="plots-grid">
+                <div class="plot-container">
+                    <canvas id="collision-chart" width="200" height="100"></canvas>
+                    <p class="plot-caption">Collision rate comparison</p>
+                </div>
+            </div>
+
+        </section>
+
+    </div> <!-- end .app-container -->
+
+    <!-- JavaScript reference -->
+    <script src="/static/js/script.js" defer></script>
+
+</body>
+</html>
