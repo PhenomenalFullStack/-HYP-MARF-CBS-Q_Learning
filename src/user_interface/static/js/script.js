@@ -32,7 +32,7 @@
     collisionChart: document.getElementById("collision-chart"),
   };
 
-  // Colours used for each vehicle - shared by the vehicle dots and the goal markers
+  // Colours used for each vehicle, shared by the vehicle dots and the goal markers
   const VEHICLE_COLOURS = {
     A: "#ff0000",
     B: "#0044ff",
@@ -53,68 +53,90 @@
   let animationIndex = 0;
   let vehicleGoals = {};
   let previousPositions = {};
-  let fullDataset = null;
+  let baselineData = null;
+  let hybridData = null;
+  let currentDataSource = 'baseline'; // 'baseline' or 'hybrid'
   let lastGridStateForRedraw = null;
 
-  // Load the full dataset
-  async function loadDataset() {
+  // Load both datasets
+  async function loadDatasets() {
     try {
+      // Load baseline (intersection_schedules.json)
       let response = await fetch('/intersection_schedules.json');
-      if (!response.ok) {
-        throw new Error('Failed to load dataset');
-      }
-      fullDataset = await response.json();
-      console.log(`Loaded ${Object.keys(fullDataset).length} configurations`);
+      if (!response.ok) throw new Error('Failed to load baseline dataset');
+      baselineData = await response.json();
+      console.log(`Loaded baseline: ${Object.keys(baselineData).length} configurations`);
 
-      const keys = Object.keys(fullDataset).slice(0, 5);
-      console.log('Sample keys:', keys);
-      if (keys.length > 0) {
-        console.log('Sample entry structure:', fullDataset[keys[0]]);
-      }
+      // Load hybrid (simulation_results.json)
+      response = await fetch('/simulation_results.json');
+      if (!response.ok) throw new Error('Failed to load hybrid dataset');
+      hybridData = await response.json();
+      console.log(`Loaded hybrid: ${hybridData.length} configurations`);
 
-      return fullDataset;
+      return true;
     } catch (error) {
-      console.error('Error loading dataset:', error);
-      fullDataset = null;
-      return null;
+      console.error('Error loading datasets:', error);
+      baselineData = null;
+      hybridData = null;
+      return false;
     }
   }
 
-  // Extract data for charts based on user selections
-  function extractChartData() {
-    if (!fullDataset) {
-      console.error('Dataset not loaded');
-      return null;
-    }
+  // Helper to map float to integer (0/1)
+  function mapToInt(value) {
+    return Math.abs(value) < 0.001 ? 0 : 1;
+  }
 
+  // Extract data for charts based on user selections and current data source
+  function extractChartData() {
     const metric1 = dom.metric1.value;
     const metric2 = dom.metric2.value;
     const numVehicles = parseInt(dom.numVehicles.value) || 4;
     const sensorNoise = dom.sensorNoiseToggle.checked ? 0.1 : 0.0;
     const commLatency = parseFloat(dom.commLatency.value) || 0;
+    const brakingDelay = parseFloat(dom.brakingDelay.value) || 0;
 
-    console.log('Searching for configs with:', { numVehicles, sensorNoise, commLatency });
+    console.log(`Extracting chart data from ${currentDataSource} with:`, { numVehicles, sensorNoise, commLatency, brakingDelay });
 
-    const configs = [];
-    const labels = [];
+    let configs = [];
+    let labels = [];
 
-    for (const [key, entry] of Object.entries(fullDataset)) {
-      const params = entry.parameters || {};
-
-      const matchesNumVehicles = params.num_vehicles === numVehicles;
-      const matchesSensorNoise = Math.abs((params.sensor_noise || 0) - sensorNoise) < 0.001;
-      const matchesCommLatency = Math.abs((params.comm_latency || 0) - commLatency) < 0.001;
-
-      // filter braking delay to only 0.0 and 0.1
-      const bd = params.braking_delay || 0;
-      if (Math.abs(bd - 0.0) > 0.001 && Math.abs(bd - 0.1) > 0.001) {
-        continue; 
+    if (currentDataSource === 'baseline') {
+      if (!baselineData) {
+        console.error('Baseline data not loaded');
+        return null;
       }
-
-      if (matchesNumVehicles && matchesSensorNoise && matchesCommLatency) {
+      for (const [key, entry] of Object.entries(baselineData)) {
+        const params = entry.parameters || {};
+        if (params.num_vehicles !== numVehicles) continue;
+        if (Math.abs((params.sensor_noise || 0) - sensorNoise) > 0.001) continue;
+        if (Math.abs((params.comm_latency || 0) - commLatency) > 0.001) continue;
+        const bd = params.braking_delay || 0;
+        if (Math.abs(bd - brakingDelay) > 0.001) continue;
         configs.push(entry);
         labels.push(`BD=${bd.toFixed(1)}`);
-        console.log(`Found config: ${key}, braking_delay: ${bd}`);
+      }
+    } else { // hybrid
+      if (!hybridData) {
+        console.error('Hybrid data not loaded');
+        return null;
+      }
+      // Map UI values to integers (0/1)
+      const uiSn = mapToInt(sensorNoise);
+      const uiCl = mapToInt(commLatency);
+      const uiBd = mapToInt(brakingDelay);
+
+      for (const entry of hybridData) {
+        if (entry.num_vehicles !== numVehicles) continue;
+        const cfg = entry.configuration || {};
+        const sn = cfg.sensor_noise ?? 0;
+        const cl = cfg.comm_latency ?? 0;
+        const bd = cfg.braking_delay ?? 0;
+        if (sn !== uiSn) continue;
+        if (cl !== uiCl) continue;
+        if (bd !== uiBd) continue;
+        configs.push(entry);
+        labels.push(`BD=${bd}`);
       }
     }
 
@@ -122,19 +144,19 @@
 
     if (configs.length === 0) {
       console.warn('No configurations found for the selected parameters');
-      const sampleConfig = Object.values(fullDataset)[0];
-      if (sampleConfig) {
-        const params = sampleConfig.parameters || {};
-        console.log('Sample available parameters:', params);
-        console.log('Available num_vehicles values:', [...new Set(Object.values(fullDataset).map(e => e.parameters?.num_vehicles))]);
-        console.log('Available braking_delay values:', [...new Set(Object.values(fullDataset).map(e => e.parameters?.braking_delay))]);
-      }
       return null;
     }
 
+    // Sort by braking delay
     configs.sort((a, b) => {
-      const bdA = a.parameters?.braking_delay || 0;
-      const bdB = b.parameters?.braking_delay || 0;
+      let bdA, bdB;
+      if (currentDataSource === 'baseline') {
+        bdA = a.parameters?.braking_delay || 0;
+        bdB = b.parameters?.braking_delay || 0;
+      } else {
+        bdA = a.configuration?.braking_delay || 0;
+        bdB = b.configuration?.braking_delay || 0;
+      }
       return bdA - bdB;
     });
 
@@ -142,21 +164,45 @@
     const data2 = [];
 
     for (const config of configs) {
-      const cbs = config.cbs || {};
-      const hybrid = config.hybrid || {};
+      let cbsSteps = 0, hybridSteps = 0, collisions = 0, replans = 0, delay = 0;
+
+      if (currentDataSource === 'baseline') {
+        const cbs = config.cbs || {};
+        cbsSteps = cbs.steps || 0;
+        collisions = cbs.collisions || 0;
+        replans = cbs.replans_triggered || 0;
+        delay = cbs.delay_steps || 0;
+        hybridSteps = 0;
+      } else {
+        const cbsSchedule = config.cbs_schedule || {};
+        const actualSchedule = config.actual_schedule || {};
+        const countSteps = (schedule) => {
+          let maxSteps = 0;
+          for (const vid of Object.keys(schedule)) {
+            const steps = schedule[vid];
+            if (steps && steps.length > maxSteps) maxSteps = steps.length;
+          }
+          return maxSteps;
+        };
+        cbsSteps = countSteps(cbsSchedule);
+        hybridSteps = countSteps(actualSchedule);
+        collisions = config.collisions || 0;
+        replans = config.replans_triggered || 0;
+        delay = Math.max(0, hybridSteps - cbsSteps);
+      }
 
       let val1 = 0;
       let val2 = 0;
 
       switch (metric1) {
         case 'cbs':
-          val1 = cbs.steps || 0;
+          val1 = cbsSteps;
           break;
         case 'hybrid':
-          val1 = hybrid.steps || cbs.steps || 0;
+          val1 = hybridSteps || cbsSteps;
           break;
         case 'replans':
-          val1 = cbs.replans_triggered || hybrid.replans_triggered || 0;
+          val1 = replans;
           break;
         default:
           val1 = 0;
@@ -164,13 +210,13 @@
 
       switch (metric2) {
         case 'collisions':
-          val2 = cbs.collisions || hybrid.collisions || 0;
+          val2 = collisions;
           break;
         case 'timesteps':
-          val2 = cbs.steps || hybrid.steps || 0;
+          val2 = cbsSteps || hybridSteps;
           break;
         case 'delay':
-          val2 = cbs.delay_steps || hybrid.delay_steps || 0;
+          val2 = delay;
           break;
         default:
           val2 = 0;
@@ -188,7 +234,8 @@
       data2: data2,
       metric1Label: getMetricLabel(metric1),
       metric2Label: getMetricLabel(metric2),
-      configs: configs
+      configs: configs,
+      source: currentDataSource
     };
   }
 
@@ -301,7 +348,7 @@
             },
             title: {
               display: true,
-              text: `${chartData.metric1Label} by Disturbance`,
+              text: `${chartData.metric1Label} by Disturbance (${chartData.source})`,
               font: { size: 14, weight: 'bold' }
             }
           }
@@ -337,7 +384,7 @@
           },
           title: {
             display: true,
-            text: `${chartData.metric1Label} vs ${chartData.metric2Label}`,
+            text: `${chartData.metric1Label} vs ${chartData.metric2Label} (${chartData.source})`,
             font: { size: 14, weight: 'bold' }
           },
           tooltip: {
@@ -401,7 +448,7 @@
 
       chartConfig.data = {
         datasets: [{
-          label: `${chartData.metric1Label} vs ${chartData.metric2Label}`,
+          label: `${chartData.metric1Label} vs ${chartData.metric2Label} (${chartData.source})`,
           data: scatterData,
           backgroundColor: 'rgba(54, 162, 235, 0.6)',
           borderColor: 'rgba(54, 162, 235, 1)',
@@ -443,7 +490,7 @@
     const caption = document.querySelector('.plot-caption');
     if (caption) {
       const numConfigs = chartData.labels.length;
-      caption.textContent = `${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph showing CBS ${chartData.metric2Label} under Sensor Noise Disturbance`;
+      caption.textContent = `${chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph showing ${chartData.metric1Label} vs ${chartData.metric2Label} (${chartData.source})`;
     }
   }
 
@@ -473,6 +520,13 @@
 
   // Run Simulation
   function runSimulation(endpoint) {
+    // Set data source based on endpoint
+    if (endpoint === '/run_cbs') {
+      currentDataSource = 'baseline';
+    } else if (endpoint === '/run_hybrid') {
+      currentDataSource = 'hybrid';
+    }
+
     const parameters = getParameters();
     setButtonsEnabled(false);
     dom.progressBar.style.width = "30%";
@@ -868,7 +922,7 @@
 
   // Initialize
   async function init() {
-    await loadDataset();
+    await loadDatasets();
 
     clearGrid();
     dom.vehiclesReached.textContent = "0 / " + getParameters().num_vehicles;
@@ -887,7 +941,7 @@
     ctx.fillText('Select metrics and chart type, then click "Generate Chart"', dom.collisionChart.width / 2, dom.collisionChart.height / 2 - 10);
     ctx.font = '14px Inter, sans-serif';
     ctx.fillStyle = '#999';
-    ctx.fillText('Data loaded: ' + (fullDataset ? Object.keys(fullDataset).length + ' configurations' : 'Not loaded'), dom.collisionChart.width / 2, dom.collisionChart.height / 2 + 25);
+    ctx.fillText('Data loaded: baseline=' + (baselineData ? Object.keys(baselineData).length : 0) + ' configs, hybrid=' + (hybridData ? hybridData.length : 0) + ' configs', dom.collisionChart.width / 2, dom.collisionChart.height / 2 + 25);
 
     console.log("Autonomous Navigation System UI ready.");
   }

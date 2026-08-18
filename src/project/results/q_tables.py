@@ -1,4 +1,5 @@
 # q_tables.py
+
 import os
 import sys
 
@@ -49,14 +50,14 @@ def main():
             for agent in agents.values():
                 agent.decay_epsilon()
 
-        # save the learned table for every vehicle under this config
+        # save the learned table for every vehicle under this configuration.
         qtable_dir = os.path.join(Q_TABLE_ROOT, config_name)
         os.makedirs(qtable_dir, exist_ok=True)
         for vid, agent in agents.items():
             agent.save_q_table(os.path.join(qtable_dir, f"{vid}.json"))
         print(f"  saved -> {qtable_dir}/")
 
-        # greedy eval match CBS exactly
+        # greedy eval match CBS
         for agent in agents.values():
             agent.epsilon = 0.0
         eval_paths, _ = run_episode(vehicles, grid, delays, agents, train=False)
@@ -65,7 +66,6 @@ def main():
             print(f"  {vid}: matches CBS = {match}")
 
     print(f"\nAll Q-tables saved under ./{Q_TABLE_ROOT}/<config_name>/<vehicle_id>.json")
-    print("Run `python view_q_tables.py` to inspect them.")
 
 
 if __name__ == "__main__":

@@ -105,7 +105,7 @@ def _convert_hybrid_entry(entry, num_vehicles):
     vehicles_reached_per_step = [[] for _ in range(len(grid_states))]
 
     return {
-        "collisions": 0,                       
+        "collisions": entry.get("collisions", 0),
         "steps": max_time,
         "total_time_steps": max_time,
         "vehicles_reached_goal": vehicles_reached_goal,
@@ -211,17 +211,18 @@ def find_hybrid_result(params):
           f"comm_latency={comm_latency} (from {comm_latency_ui}), "
           f"braking_delay={braking_delay} (from {braking_delay_ui})")
 
-    # Search in HYBRID_DATA
+    # Search in HYBRID_DATA - data must match num_vehicles and configuration
     for entry in HYBRID_DATA:
         cfg = entry.get("configuration", {})
-        if (cfg.get("sensor_noise", 0) == sensor_noise and
+        if (entry.get("num_vehicles") == num_vehicles and
+            cfg.get("sensor_noise", 0) == sensor_noise and
             cfg.get("braking_delay", 0) == braking_delay and
             cfg.get("comm_latency", 0) == comm_latency):
             # Found matching configuration
             return _convert_hybrid_entry(entry, num_vehicles)
 
-    print(f"No hybrid match for mapped params: sensor_noise={sensor_noise}, "
-          f"comm_latency={comm_latency}, braking_delay={braking_delay}")
+    print(f"No hybrid match for num_vehicles={num_vehicles}, "
+          f"sensor_noise={sensor_noise}, comm_latency={comm_latency}, braking_delay={braking_delay}")
     return _empty_result(num_vehicles)
 
 
@@ -254,7 +255,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(404, f"File not found: {rel}")
                 return
 
-        # Serve baseline data file (for charts)
+        # Serve baseline data file for charts
         if path == "/static/data/intersection_schedules.json" or path == "/intersection_schedules.json":
             if os.path.isfile(BASELINE_JSON):
                 self.send_response(200)
@@ -265,6 +266,19 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
             else:
                 self.send_error(404, "Data file not found")
+                return
+
+        # Serve hybrid data file for charts
+        if path == "/simulation_results.json":
+            if os.path.isfile(HYBRID_JSON):
+                self.send_response(200)
+                self.send_header("Content-type", "application/json")
+                self.end_headers()
+                with open(HYBRID_JSON, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+            else:
+                self.send_error(404, "Hybrid data file not found")
                 return
 
         # Serve index page
