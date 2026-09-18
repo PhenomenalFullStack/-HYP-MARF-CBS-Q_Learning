@@ -1,0 +1,120 @@
+I WILL USE THIS IN MY RESEARCH PAPER WHEN I WRITE THE ABLATION STUDY FOR DQN - 4 AVs
+
+
+C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deep_q-learning\ablation_study>python ablation_study.py
+
+[Baseline]
+CBS solution found after 2 nodes.
+  My Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[activation = leaky_relu]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[activation = tanh]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.00000000000001, 'steps': 10, 'success': 1}
+
+[activation = sigmoid]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[loss_fn = huber]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[loss_fn = mae]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[optimizer = sgd]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 26.6, 'steps': 10, 'success': 1}
+
+[optimizer = rmsprop]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[hidden_size = 32]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[hidden_size = 64]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[hidden_size = 256]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[num_layers = 1]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[num_layers = 3]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[lr = 0.0001]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[lr = 0.0005]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[lr = 0.005]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[gamma = 0.85]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[gamma = 0.95]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[gamma = 0.99]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[epsilon_decay = 0.99]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[epsilon_decay = 0.999]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[batch_size = 32]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[batch_size = 128]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[target_update = 50]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[target_update = 200]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[use_target_network = False]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[use_replay = False]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+[double_dqn = True]
+CBS solution found after 2 nodes.
+ Ablation Parameter Setup Results: {'collisions': 0, 'reward': 55.699999999999996, 'steps': 10, 'success': 1}
+
+Saved 28 runs to C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deep_q-learning\ablation_study\results\ablation_results.csv
+
+C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deep_q-learning\ablation_study>

@@ -1,3 +1,5 @@
+# demo.py
+
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
@@ -167,30 +169,44 @@ class DQNDemo:
         self.status = ttk.Label(self.root, text="Ready. Select parameters and click Load.", relief='sunken')
         self.status.pack(fill='x', pady=5)
 
+    def draw_roads(self):
+        """Draw blue road boundary lines on the grid."""
+        cell = CELL_SIZE
+        # Horizontal roads: rows 4 and 5 (road band from row 4 to row 6)
+        top = 4 * cell
+        bottom = 6 * cell
+        self.canvas.create_line(0, top, CANVAS_SIZE, top, fill='#0066ff', width=2, tags='road')
+        self.canvas.create_line(0, bottom, CANVAS_SIZE, bottom, fill='#0066ff', width=2, tags='road')
+        # Vertical roads: columns 4 and 5 (road band from col 4 to col 6)
+        left = 4 * cell
+        right = 6 * cell
+        self.canvas.create_line(left, 0, left, CANVAS_SIZE, fill='#0066ff', width=2, tags='road')
+        self.canvas.create_line(right, 0, right, CANVAS_SIZE, fill='#0066ff', width=2, tags='road')
+
     def draw_grid(self, state=None):
-        """Draw the grid and vehicles. If state is None, draw empty grid."""
         self.canvas.delete('all')
         cell = CELL_SIZE
-        # Draw grid lines
+        # Grid lines
         for i in range(GRID_SIZE + 1):
             x = i * cell
             y = i * cell
             self.canvas.create_line(x, 0, x, CANVAS_SIZE, fill='#cccccc', tags='grid')
             self.canvas.create_line(0, y, CANVAS_SIZE, y, fill='#cccccc', tags='grid')
-        # Draw intersection area (central 2x2)
-        self.canvas.create_rectangle(4*cell, 4*cell, 6*cell, 6*cell, 
+        # Draw roads
+        self.draw_roads()
+        # Intersection area (central 2x2)
+        self.canvas.create_rectangle(4*cell, 4*cell, 6*cell, 6*cell,
                                      outline='#ff0000', width=2, fill='', tags='intersection')
-        # Draw goal markers if we have goals
+        # Goal markers
         if hasattr(self, 'goals') and self.goals:
             for vid, (row, col) in self.goals.items():
                 x = col * cell + cell // 2
                 y = row * cell + cell // 2
                 color = VEHICLE_COLORS.get(vid, '#888888')
-                # Draw a star/diamond
                 size = 10
                 points = [x, y-size, x+size, y, x, y+size, x-size, y]
                 self.canvas.create_polygon(points, outline=color, fill='', width=2, tags='goal')
-        # Draw vehicles
+        # Vehicles
         if state:
             for vid, (row, col) in state.items():
                 x = col * cell + cell // 2
@@ -199,7 +215,7 @@ class DQNDemo:
                 color = VEHICLE_COLORS.get(vid, '#888888')
                 self.canvas.create_oval(x-radius, y-radius, x+radius, y+radius,
                                         fill=color, outline='black', width=2, tags='vehicle')
-                self.canvas.create_text(x, y, text=vid, font=('Arial', 10, 'bold'), 
+                self.canvas.create_text(x, y, text=vid, font=('Arial', 10, 'bold'),
                                         fill='white', tags='vehicle')
 
     def load_schedule(self):

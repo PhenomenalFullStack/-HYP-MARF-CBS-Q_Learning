@@ -1,9 +1,5 @@
 # simulation_dqn.py
 
-
-# When I get time I should fix the code: Reward Side.
-
-
 import os
 import sys
 import json
@@ -23,16 +19,43 @@ from deep_q_learning_agent import DQNAgent
 GRID_SIZE = 10
 MAX_STEPS = 50
 TRAINING_EPISODES = 500
-STATE_SIZE = 9 + 2 + 2 + 1  # observation (9) + schedule_pos (2) + actual_pos (2) + delay (1)
+STATE_SIZE = (
+    9 + 2 + 2 + 1
+)  # observation (9) + schedule_pos (2) + actual_pos (2) + delay (1)
+
 
 # Scenario generation (1‑8 vehicles)
 def generate_scenario(num_vehicles, seed=None):
     base_ids = ["A", "B", "C", "D"]
     sides = [
-        {"lane_axis": "row", "lane_value": 5, "start_depth_base": 9, "start_depth_dir": -1, "goal_depth_base": 0},
-        {"lane_axis": "col", "lane_value": 4, "start_depth_base": 9, "start_depth_dir": -1, "goal_depth_base": 0},
-        {"lane_axis": "row", "lane_value": 4, "start_depth_base": 0, "start_depth_dir": 1, "goal_depth_base": 9},
-        {"lane_axis": "col", "lane_value": 5, "start_depth_base": 1, "start_depth_dir": 1, "goal_depth_base": 9},
+        {
+            "lane_axis": "row",
+            "lane_value": 5,
+            "start_depth_base": 9,
+            "start_depth_dir": -1,
+            "goal_depth_base": 0,
+        },
+        {
+            "lane_axis": "col",
+            "lane_value": 4,
+            "start_depth_base": 9,
+            "start_depth_dir": -1,
+            "goal_depth_base": 0,
+        },
+        {
+            "lane_axis": "row",
+            "lane_value": 4,
+            "start_depth_base": 0,
+            "start_depth_dir": 1,
+            "goal_depth_base": 9,
+        },
+        {
+            "lane_axis": "col",
+            "lane_value": 5,
+            "start_depth_base": 1,
+            "start_depth_dir": 1,
+            "goal_depth_base": 9,
+        },
     ]
     occupants = [list() for _ in range(4)]
     if num_vehicles <= 4:
@@ -72,6 +95,7 @@ def generate_scenario(num_vehicles, seed=None):
                 goals[vid] = (goal_depth, lane_value)
     return starts, goals
 
+
 # Helper functions
 def distribute_schedules(vehicles, schedules):
     for sch in schedules:
@@ -79,6 +103,7 @@ def distribute_schedules(vehicles, schedules):
             if v.vehicle_id == sch.vehicle_id:
                 v.set_schedule(sch)
                 break
+
 
 def reset_simulation(vehicles, grid):
     for r in range(grid.height):
@@ -89,6 +114,7 @@ def reset_simulation(vehicles, grid):
         v.current_position = v.start
         grid.place_vehicle(v.vehicle_id, v.start)
 
+
 def get_position_on_path(vehicle, index):
     if index < 0:
         return vehicle.start
@@ -96,8 +122,11 @@ def get_position_on_path(vehicle, index):
         return vehicle.goal
     return vehicle.path[index]
 
+
 # Episode runner
-def run_episode(vehicles, grid, delays, agents, vehicle_ids, time_limit=MAX_STEPS, train=True):
+def run_episode(
+    vehicles, grid, delays, agents, vehicle_ids, time_limit=MAX_STEPS, train=True
+):
     reset_simulation(vehicles, grid)
     paths = {v.vehicle_id: [v.start] for v in vehicles}
     done = False
@@ -121,27 +150,32 @@ def run_episode(vehicles, grid, delays, agents, vehicle_ids, time_limit=MAX_STEP
         for vid in vehicle_ids:
             v = [v for v in vehicles if v.vehicle_id == vid][0]
             obs = v.get_observation(grid)
-            state = agents[vid].build_state_key(obs, scheduled_current[vid], v.current_position, delay[vid])
+            state = agents[vid].build_state_key(
+                obs, scheduled_current[vid], v.current_position, delay[vid]
+            )
 
-            # Determine allowed actions based on delay
             if delay[vid] > 0:
-                allowed = [0, 1, 2]   # forward, wait, skip
+                allowed = [0, 1, 2]
             else:
-                allowed = [0, 1]      # forward, wait (skip not allowed)
+                allowed = [0, 1]
 
             if train:
-                action = agents[vid].select_action(obs, scheduled_current[vid], v.current_position, delay[vid], allowed)
+                action = agents[vid].select_action(
+                    obs, scheduled_current[vid], v.current_position, delay[vid], allowed
+                )
             else:
-                action = agents[vid].select_action(obs, scheduled_current[vid], v.current_position, delay[vid], allowed)
+                action = agents[vid].select_action(
+                    obs, scheduled_current[vid], v.current_position, delay[vid], allowed
+                )
             actions[vid] = action
             if train:
                 prev_states[vid] = state
                 prev_actions[vid] = action
 
         for vid in vehicle_ids:
-            if actions[vid] == 1:      # wait
+            if actions[vid] == 1:
                 delay[vid] += 1
-            elif actions[vid] == 2:    # skip (only if allowed)
+            elif actions[vid] == 2:
                 if delay[vid] > 0:
                     delay[vid] -= 1
 
@@ -164,7 +198,11 @@ def run_episode(vehicles, grid, delays, agents, vehicle_ids, time_limit=MAX_STEP
         collision_flags = {vid: False for vid in vehicle_ids}
         collision_count = 0
         for i, vid1 in enumerate(vehicle_ids):
-            for vid2 in vehicle_ids[i+1:]:
+            for vid2 in vehicle_ids[i + 1 :]:
+                v1 = [v for v in vehicles if v.vehicle_id == vid1][0]
+                v2 = [v for v in vehicles if v.vehicle_id == vid2][0]
+                if v1.has_reached_goal() or v2.has_reached_goal():
+                    continue
                 if new_positions[vid1] == new_positions[vid2]:
                     collision_flags[vid1] = True
                     collision_flags[vid2] = True
@@ -186,24 +224,29 @@ def run_episode(vehicles, grid, delays, agents, vehicle_ids, time_limit=MAX_STEP
                     true_next_sched_pos,
                     delay[vid],
                     collision_flags[vid],
-                    v.goal
+                    v.goal,
                 )
                 total_reward += reward
 
                 next_obs = v.get_observation(grid)
                 noisy_next_sched_pos = get_position_on_path(v, (step + 1) - delay[vid])
-                next_state = agents[vid].build_state_key(next_obs, noisy_next_sched_pos, new_positions[vid], delay[vid])
-                agents[vid].update_q_table(prev_states[vid], prev_actions[vid], reward, next_state)
+                next_state = agents[vid].build_state_key(
+                    next_obs, noisy_next_sched_pos, new_positions[vid], delay[vid]
+                )
+                agents[vid].update_q_table(
+                    prev_states[vid], prev_actions[vid], reward, next_state
+                )
 
         done = all(v.has_reached_goal() for v in vehicles)
         step += 1
 
     return paths, total_reward, collision_count
 
+
 # Main training loop over vehicle counts
 def main():
-    vehicle_counts = list(range(1, 9))  # 1 to 8 vehicles
-    configs = [(sn, bd, cl) for sn in [0,1] for bd in [0,1] for cl in [0,1]]
+    vehicle_counts = list(range(1, 9))
+    configs = [(sn, bd, cl) for sn in [0, 1] for bd in [0, 1] for cl in [0, 1]]
     all_results = []
 
     for num_vehicles in vehicle_counts:
@@ -225,7 +268,9 @@ def main():
 
         cbs_schedule_data = {}
         for sch in schedules:
-            cbs_schedule_data[sch.vehicle_id] = [{"time": t, "position": pos} for pos, t in sch.steps]
+            cbs_schedule_data[sch.vehicle_id] = [
+                {"time": t, "position": pos} for pos, t in sch.steps
+            ]
 
         for sn, bd, cl in configs:
             config_name = f"sensorNoise{sn}_brakingDelay{bd}_commLatency{cl}"
@@ -245,7 +290,7 @@ def main():
                     epsilon=1.0,
                     epsilon_decay=0.995,
                     batch_size=64,
-                    target_update=100
+                    target_update=100,
                 )
 
             for ep in range(TRAINING_EPISODES):
@@ -255,17 +300,26 @@ def main():
 
             for agent in agents.values():
                 agent.epsilon = 0.0
-            eval_paths, eval_collisions, _ = run_episode(vehicles, grid, delays, agents, vehicle_ids, train=False)
+
+            eval_paths, _, eval_collisions = run_episode(
+                vehicles, grid, delays, agents, vehicle_ids, train=False
+            )
 
             actual_schedule = {}
             for vid in vehicle_ids:
-                steps = [{"time": t, "position": pos} for t, pos in enumerate(eval_paths[vid])]
+                steps = [
+                    {"time": t, "position": pos}
+                    for t, pos in enumerate(eval_paths[vid])
+                ]
                 actual_schedule[vid] = steps
 
-            # Store results for this configuration
             entry = {
                 "num_vehicles": num_vehicles,
-                "configuration": {"sensor_noise": sn, "braking_delay": bd, "comm_latency": cl},
+                "configuration": {
+                    "sensor_noise": sn,
+                    "braking_delay": bd,
+                    "comm_latency": cl,
+                },
                 "cbs_schedule": cbs_schedule_data,
                 "actual_schedule": actual_schedule,
                 "collisions": eval_collisions,
@@ -273,19 +327,22 @@ def main():
             }
             all_results.append(entry)
 
-            # Print the results for this configuration
             print(f"\n  CBS Schedule (for {num_vehicles} vehicles):")
             for vid, steps in cbs_schedule_data.items():
                 print(f"  Vehicle {vid}: {steps}")
-            print(f"\n  Actual Schedule after DQN ({config_name}, {num_vehicles} vehicles):")
+            print(
+                f"\n  Actual Schedule after DQN ({config_name}, {num_vehicles} vehicles):"
+            )
             for vid, steps in actual_schedule.items():
                 print(f"  Vehicle {vid}: {steps}")
             print(f"  Collisions: {eval_collisions}")
 
-    # Save all results to a JSON file
     with open("dqn_simulation_results_all_vehicles.json", "w") as f:
         json.dump(all_results, f, indent=4)
-    print(f"\nAll DQN results saved to dqn_simulation_results_all_vehicles.json (total {len(all_results)} entries).")
+    print(
+        f"\nAll DQN results saved to dqn_simulation_results_all_vehicles.json (total {len(all_results)} entries)."
+    )
+
 
 # call main function
 if __name__ == "__main__":

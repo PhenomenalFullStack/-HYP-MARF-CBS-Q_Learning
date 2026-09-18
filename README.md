@@ -104,7 +104,20 @@ src/
 ├── deep_q-leaning/                       # PROPOSED SOLUTION
 │   |                                                     
 |   ├── deep_q_learning_agent.py          # Deep Q-Learning Network agent (PyTorch).
-|   └── simulation_dqn.py                 # Intersection simulation.
+|   ├── simulation_dqn.py                 # Intersection simulation.
+|   └── ablation_study/
+|       ├── deep_q_learning_agent.py      # configurable copy of the The DQN code.
+|       ├── ablation_study_4_vehicles.py
+|       ├── ablation_plots_4_vehicles.py
+|       ├── ablation_study_8_vehicles.py
+|       ├── ablation_plots_8_vehicles.py
+|       └── results/                      # Aauto-created
+|           ├── four_vehicles/
+|           │   ├── ablation_results.csv
+|           │   └── ablation_*.png
+|           └── fivetoeight_vehicles/
+|               ├── ablation_results_8_vehicles.csv
+|               └── ablation_*_8_vehicles.png
 |
 └──user_interface/
       ├── static/
@@ -174,10 +187,10 @@ The bar charts compare, for each vehicle count, the best (shortest steps) and wo
 
 
 ---
-# Deep Q-Learning (DQNs) - Beta: Plan and Literature Study
+# Deep Q-Network (DQNs) - Beta: Plan and Literature Study
 
-## Deep Q Learning
-Deep Q Learning uses the Q-learning idea and takes it one step further. Instead of using a Q-table, 
+## Deep Q-Network
+Deep Q Network uses the Q-learning idea and takes it one step further. Instead of using a Q-table, 
 we use a Neural Network that takes a state and approximates the Q-values for each action based on that state.
 
 ## PROBLEM: 
@@ -187,7 +200,7 @@ If our state space is large, a grid with multiple vehicles, each with positions 
 Instead of storing values in a table, the neural network takes a state as input and outputs Q-values for all 
 possible actions. The network learns to approximate the Q-function, generalising across similar states.
 
-### Q-Learning vs Deep Q-Learning
+### Q-Learning vs Deep Q-Network
 We do this because using a classic Q-table is not very scalable. It might work for a simple intersection navigation, 
 But in a more complex navigation problem with dozens of possible actions and vehicle states, the Q-table will soon become too large and cannot be solved efficiently anymore.
 
@@ -200,7 +213,7 @@ But in a more complex navigation problem with dozens of possible actions and veh
 6. Sample a random batch of experiences from the replay buffer and update the neural network using the Q-learning update rule.
 
 
-### Components of Deep Q-Learning Network.
+### Components of Deep Q-Network.
 
 1. State Representation: What the neural network see. 3x3 observation grid (9 cells), the vehicle's current position, vehicles  scheduled position.
 
@@ -222,7 +235,7 @@ Input Layer (state_size)
          |
    Dense (128, ReLU)
          |
-   Dense (64, ReLU)
+   Dense (128, ReLU)
          |
 Output Layer (3 Actions)
 
@@ -236,7 +249,7 @@ DQN replaces the Q-table. The state includes the 3×3 observation, schedule posi
 DQN learns the entire policy – it decides both the path and the timing, without relying on a pre-computed CBS schedule. The agent learns directly from the grid state, using the neural network to map observations to actions. This is more challenging but can potentially discover more optimal policies.
 
 
-### How Deep Q-Leanring Network Solves the Problem:
+### How Deep Q-Network Solves the Problem:
 1. Scales to more vehicles: The neural network can handle larger state representations without the Q-table blowing up.
 2. Generalisation: DQN can generalise across similar states, potentially learning faster and more robustly.
 3. Handles uncertainty: DQN with experience replay can learn from past experiences more efficiently, making it more robust to disturbances.
@@ -244,7 +257,7 @@ DQN learns the entire policy – it decides both the path and the timing, withou
 --- 
 
 # IMPLEMENTATION
-1. Mode A (Replacing Q-Learning, keeping the CBS) - Hybrid (CBS + Deep Q-Learning).
+1. Mode A (Replacing Q-Learning, keeping the CBS) - Hybrid (CBS + Deep Q-Network).
    The Idea is that the DQL uses a neural network to decide when to wait, skip while still following the CBS schedule.
 
 ## DQN Parameters we Use
@@ -258,4 +271,24 @@ epsilon_decay	  0.995	      Slow decay over 500 episodes (~0.08 after 500).
 batch_size	    64	        Standard.
 target_update	  100	        Update target network every 100 steps.
 buffer_size	    100000	    Large enough.
+
+
+---
+
+
+
+
+---
+---
+
+
+
+
+---
+# Deep Q-Network (DQNs) - Beta: Ablations Study for 4 Vehicles
+The DQN pipeline is highly robust to most architectural and hyperparameter choices: activations, loss functions, hidden‑size, number of layers, learning rate, discount factor, epsilon decay, batch size, target‑update interval, and even the presence of replay or a target network all converge to the same optimal policy on this task. This is because the state space is small with only 4 Autonomous vehicle agents and the optimal action sequence is essentially determined by the CBS route and delay flag. The only ablation that changes the outcome is the choice of optimiser, SGD converges to a weaker policy that yields the same number of steps but produces 52% less reward, confirming that adaptive optimisers are necessary for stable Q‑value learning.
+---
+
+---
+# Deep Q-Network (DQNs) - Beta: Ablations Study for 4 Vehicles
 ---
