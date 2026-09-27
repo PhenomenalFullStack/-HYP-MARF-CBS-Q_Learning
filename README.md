@@ -74,7 +74,7 @@ We test the hybrid system under the **same disturbance conditions** used in the 
 
 ### 4. Folder Structure
 src/
-├── baseline_lib/                         # BASELINE
+├── baseline_lib/                         # BASELINE Pipeline 1: CBS.
 |   ├── cbs/
 |   |   └── cbs_planner.py                # CBS implementation.
 |   |
@@ -91,7 +91,7 @@ src/
 |   |
 |   └── README.md                         # This file.
 |
-├── project/                              # PROPOSED SOLUTION
+├── project/                              # PROPOSED SOLUTION Pipeline 2: CBS+QLearning.
 │   |                              
 |   ├── cbs_planner.py                    # Global (Priority Queue - Heap).
 |   ├── grid.py                           # 10x10 grid of the intersection.
@@ -101,7 +101,7 @@ src/
 |   ├── q_learning_agent.py               # QLearning agent (No-lib).
 |   └── simulation.py                     # Intersection simulation.
 |
-├── deep_q-leaning/                       # PROPOSED SOLUTION
+├── deep_q-leaning/                       # PROPOSED SOLUTION Pipeline 3: DQN.
 │   |                                                     
 |   ├── deep_q_learning_agent.py          # Deep Q-Learning Network agent (PyTorch).
 |   ├── simulation_dqn.py                 # Intersection simulation.
@@ -118,6 +118,26 @@ src/
 |           └── fivetoeight_vehicles/
 |               ├── ablation_results_8_vehicles.csv
 |               └── ablation_*_8_vehicles.png
+|
+├──  deterministic_deep_q_learning/       # Pipeline 4: DDPG
+|   ├── config.py
+|   ├── environment.py
+|   ├── actor.py
+|   ├── critic.py
+|   ├── replay_buffer.py
+|   ├── noise.py
+|   ├── ddpg_agent.py
+|   ├── train.py
+|   ├── evaluate.py
+|   ├── utils.py
+|   ├── models/                           # Saved model weights
+|   │   ├── actor_best.pth
+|   │   └── critic_best.pth
+|   ├── logs/                             # Training logs
+|   │   └── training_log.csv
+|   └── results/                          # Plots and metrics
+|       ├── learning_curve.png
+|       └── comparison.png
 |
 └──user_interface/
       ├── static/

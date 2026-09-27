@@ -1,5 +1,6 @@
 """
-Updated deep_q_learning_agent.py: A fully configurable DQN (activation, loss, hidden size, layers, optimiser, target network toggle, replay toggle, double DQN toggle).
+Updated deep_q_learning_agent.py: A fully configurable DQN 
+(activation, loss, hidden size, layers, optimiser, target network toggle, replay toggle, double DQN toggle).
 Configurable DQN agent used only by the ablation study.
 """
 

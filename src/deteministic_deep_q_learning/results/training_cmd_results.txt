@@ -1,0 +1,312 @@
+
+C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deteministic_deep_q_learning>del models\*.pth
+
+C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deteministic_deep_q_learning>python train.py
+[info] Device: cuda
+[info] NUM_VEHICLES = 4 (curriculum stage)
+[info] Looked for the CBS schedule at: C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deteministic_deep_q_learning\logs\cbs_schedule.npy
+[info] No CBS schedule found — schedule reward disabled.
+[ep   10] reward=    0.17 reached=0/4 collisions=  2 steps= 14 critic_loss=  0.0000 actor_loss=  0.0000 Q=   0.00 noise=1.00 time=0.0s
+    [fail] dist_to_goal=[8.270000457763672, 7.78000020980835, 8.180000305175781, 9.75] speed=[0.4099999964237213, 1.0, 1.0, 1.0]
+[ep   20] reward=  -10.47 reached=0/4 collisions=  2 steps= 27 critic_loss=  0.0000 actor_loss=  0.0000 Q=   0.00 noise=1.00 time=0.1s
+    [fail] dist_to_goal=[9.510000228881836, 11.920000076293945, 13.270000457763672, 11.260000228881836] speed=[0.07999999821186066, 0.9399999976158142, 0.75, 0.36000001430511475]
+[ep   30] reward=    1.10 reached=0/4 collisions=  2 steps= 32 critic_loss=  0.0000 actor_loss=  0.0000 Q=   0.00 noise=1.00 time=0.2s
+    [fail] dist_to_goal=[3.190000057220459, 6.409999847412109, 10.890000343322754, 9.539999961853027] speed=[0.8199999928474426, 0.41999998688697815, 0.8700000047683716, 0.8799999952316284]
+[ep   40] reward=   -2.72 reached=0/4 collisions=  2 steps= 10 critic_loss=  0.0000 actor_loss=  0.0000 Q=   0.00 noise=1.00 time=0.2s
+    [fail] dist_to_goal=[9.350000381469727, 8.0, 9.850000381469727, 12.760000228881836] speed=[1.0, 0.7300000190734863, 1.0, 0.550000011920929]
+[ep   50] reward=   -6.27 reached=0/4 collisions=  3 steps= 10 critic_loss=  0.2222 actor_loss= -0.0915 Q=   0.91 noise=1.00 time=2.5s
+    [fail] dist_to_goal=[13.4399995803833, 9.5, 9.5, 4.570000171661377] speed=[0.0, 0.9399999976158142, 0.949999988079071, 1.0]
+[eval   50] success=0.00 crash=1.00 reward=   -5.43
+[ep   60] reward=    1.85 reached=0/4 collisions=  2 steps=  7 critic_loss=  0.1979 actor_loss= -0.1449 Q=   2.16 noise=0.98 time=4.9s
+    [fail] dist_to_goal=[7.599999904632568, 6.199999809265137, 9.970000267028809, 6.019999980926514] speed=[1.0, 1.0, 0.9399999976158142, 1.0]
+[ep   70] reward=    1.59 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1370 actor_loss= -0.2315 Q=   0.84 noise=0.97 time=7.3s
+    [fail] dist_to_goal=[7.139999866485596, 7.119999885559082, 7.019999980926514, 7.170000076293945] speed=[1.0, 1.0, 1.0, 1.0]
+[ep   80] reward=    1.55 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1389 actor_loss= -0.3209 Q=   2.41 noise=0.95 time=9.6s
+    [fail] dist_to_goal=[7.019999980926514, 7.150000095367432, 7.019999980926514, 7.119999885559082] speed=[1.0, 1.0, 1.0, 1.0]
+[ep   90] reward=    1.54 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.0899 actor_loss= -0.4047 Q=   1.65 noise=0.93 time=11.7s
+    [fail] dist_to_goal=[7.059999942779541, 7.130000114440918, 7.139999866485596, 7.039999961853027] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  100] reward=    1.54 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1520 actor_loss= -0.4924 Q=   2.67 noise=0.92 time=13.7s
+    [fail] dist_to_goal=[7.03000020980835, 7.110000133514404, 7.070000171661377, 7.019999980926514] speed=[1.0, 1.0, 1.0, 1.0]
+[eval  100] success=0.00 crash=1.00 reward=   -6.48
+[ep  110] reward=    1.52 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1803 actor_loss= -0.4548 Q=   3.01 noise=0.90 time=15.8s
+    [fail] dist_to_goal=[7.110000133514404, 7.039999961853027, 7.019999980926514, 7.130000114440918] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  120] reward=    1.62 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1446 actor_loss= -0.5604 Q=   4.03 noise=0.88 time=17.7s
+    [fail] dist_to_goal=[7.019999980926514, 7.170000076293945, 7.139999866485596, 7.139999866485596] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  130] reward=    1.57 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1506 actor_loss= -0.5348 Q=   5.80 noise=0.87 time=19.5s
+    [fail] dist_to_goal=[7.099999904632568, 7.179999828338623, 7.119999885559082, 7.050000190734863] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  140] reward=   -2.22 reached=0/4 collisions=  3 steps=  7 critic_loss=  0.1163 actor_loss= -0.5562 Q=   3.54 noise=0.85 time=21.5s
+    [fail] dist_to_goal=[6.170000076293945, 6.099999904632568, 6.210000038146973, 6.059999942779541] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  150] reward=   -1.47 reached=0/4 collisions=  3 steps=  7 critic_loss=  0.1662 actor_loss= -0.5675 Q=   4.93 noise=0.83 time=23.8s
+    [fail] dist_to_goal=[6.019999980926514, 6.019999980926514, 8.0, 6.170000076293945] speed=[1.0, 1.0, 1.0, 1.0]
+[eval  150] success=0.00 crash=1.00 reward=   -1.55
+[ep  160] reward=   22.74 reached=1/4 collisions=  2 steps= 13 critic_loss=  0.1418 actor_loss= -0.5785 Q=   4.46 noise=0.82 time=25.9s
+    [fail] dist_to_goal=[4.059999942779541, 0.47999998927116394, 5.010000228881836, 3.440000057220459] speed=[0.5699999928474426, 1.0, 0.6700000166893005, 0.9399999976158142]
+[ep  170] reward=    1.51 reached=0/4 collisions=  2 steps=  7 critic_loss=  0.1690 actor_loss= -0.5986 Q=   4.75 noise=0.80 time=28.4s
+    [fail] dist_to_goal=[6.110000133514404, 6.039999961853027, 9.4399995803833, 8.40999984741211] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  180] reward=    0.01 reached=0/4 collisions=  2 steps=  5 critic_loss=  0.2372 actor_loss= -0.5898 Q=   6.11 noise=0.78 time=30.6s
+    [fail] dist_to_goal=[8.069999694824219, 8.050000190734863, 9.470000267028809, 8.890000343322754] speed=[1.0, 1.0, 1.0, 1.0]
+[ep  190] reward=   -1.97 reached=0/4 collisions=  2 steps=  5 critic_loss=  0.2045 actor_loss= -0.7352 Q=   5.77 noise=0.77 time=32.4s
+    [fail] dist_to_goal=[8.020000457763672, 10.609999656677246, 9.520000457763672, 10.75] speed=[1.0, 0.9700000286102295, 1.0, 0.9399999976158142]
+[ep  200] reward=   -1.36 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.2556 actor_loss= -0.7286 Q=   4.77 noise=0.75 time=34.3s
+    [fail] dist_to_goal=[7.21999979019165, 10.0600004196167, 8.890000343322754, 11.029999732971191] speed=[1.0, 1.0, 1.0, 0.7099999785423279]
+[eval  200] success=0.00 crash=1.00 reward=   -1.02
+[ep  210] reward=   -0.01 reached=0/4 collisions=  2 steps=  7 critic_loss=  0.2458 actor_loss= -0.9210 Q=   8.44 noise=0.73 time=37.6s
+    [fail] dist_to_goal=[6.21999979019165, 11.079999923706055, 7.449999809265137, 9.600000381469727] speed=[1.0, 0.5099999904632568, 1.0, 0.44999998807907104]
+[ep  220] reward=    1.34 reached=0/4 collisions=  2 steps=  8 critic_loss=  0.2484 actor_loss= -0.9721 Q=   8.70 noise=0.72 time=40.5s
+    [fail] dist_to_goal=[5.5, 10.359999656677246, 7.010000228881836, 7.090000152587891] speed=[0.9800000190734863, 0.3799999952316284, 1.0, 1.0]
+[ep  230] reward=    7.81 reached=0/4 collisions=  2 steps= 12 critic_loss=  0.4180 actor_loss= -1.1584 Q=   9.77 noise=0.70 time=44.2s
+    [fail] dist_to_goal=[4.789999961853027, 4.230000019073486, 4.900000095367432, 2.6500000953674316] speed=[0.8700000047683716, 1.0, 0.8100000023841858, 1.0]
+[ep  240] reward=    1.38 reached=0/4 collisions=  2 steps=  7 critic_loss=  0.3736 actor_loss= -1.3938 Q=  12.72 noise=0.68 time=47.1s
+    [fail] dist_to_goal=[8.390000343322754, 8.069999694824219, 8.239999771118164, 6.860000133514404] speed=[0.8399999737739563, 0.49000000953674316, 0.3199999928474426, 1.0]
+[ep  250] reward=    5.07 reached=0/4 collisions=  2 steps= 10 critic_loss=  0.4796 actor_loss= -1.6759 Q=  13.43 noise=0.67 time=51.4s
+    [fail] dist_to_goal=[4.71999979019165, 4.610000133514404, 6.679999828338623, 4.639999866485596] speed=[1.0, 1.0, 1.0, 0.4699999988079071]
+[eval  250] success=1.00 crash=0.00 reward=   77.29
+[ep  260] reward=    1.61 reached=0/4 collisions=  2 steps=  8 critic_loss=  0.7026 actor_loss= -1.8960 Q=  16.79 noise=0.65 time=55.0s
+    [fail] dist_to_goal=[6.829999923706055, 6.769999980926514, 8.199999809265137, 6.130000114440918] speed=[0.5099999904632568, 1.0, 0.3100000023841858, 0.6399999856948853]
+[ep  270] reward=   75.30 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.6640 actor_loss= -2.1737 Q=  18.05 noise=0.63 time=60.0s
+[ep  280] reward=   75.52 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.6722 actor_loss= -2.5531 Q=  26.74 noise=0.62 time=64.6s
+[ep  290] reward=   74.76 reached=4/4 collisions=  0 steps= 23 critic_loss=  0.7231 actor_loss= -2.9622 Q=  29.21 noise=0.60 time=69.3s
+[ep  300] reward=   75.08 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.7966 actor_loss= -3.3430 Q=  30.40 noise=0.58 time=75.1s
+[eval  300] success=1.00 crash=0.00 reward=   74.99
+[ep  310] reward=   74.93 reached=4/4 collisions=  0 steps= 27 critic_loss=  0.9274 actor_loss= -3.8686 Q=  33.77 noise=0.57 time=80.9s
+[ep  320] reward=   73.70 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.7739 actor_loss= -4.1878 Q=  38.17 noise=0.55 time=86.8s
+[ep  330] reward=   75.47 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.9292 actor_loss= -4.5596 Q=  48.31 noise=0.53 time=93.0s
+[ep  340] reward=   76.21 reached=4/4 collisions=  0 steps= 23 critic_loss=  0.9857 actor_loss= -4.8278 Q=  41.49 noise=0.52 time=98.9s
+[ep  350] reward=   76.83 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.8279 actor_loss= -5.1139 Q=  48.58 noise=0.50 time=105.3s
+[eval  350] success=1.00 crash=0.00 reward=   74.99
+[ep  360] reward=   76.10 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.8489 actor_loss= -5.2866 Q=  51.08 noise=0.48 time=111.0s
+[ep  370] reward=   75.41 reached=4/4 collisions=  0 steps= 22 critic_loss=  0.9061 actor_loss= -5.4100 Q=  51.48 noise=0.47 time=117.3s
+[ep  380] reward=   76.48 reached=4/4 collisions=  0 steps= 22 critic_loss=  0.8762 actor_loss= -5.4200 Q=  52.29 noise=0.45 time=124.9s
+[ep  390] reward=   76.39 reached=4/4 collisions=  0 steps= 24 critic_loss=  0.8205 actor_loss= -5.4590 Q=  50.62 noise=0.43 time=133.0s
+[ep  400] reward=   76.11 reached=4/4 collisions=  0 steps= 24 critic_loss=  0.8686 actor_loss= -5.4969 Q=  49.76 noise=0.42 time=142.1s
+[eval  400] success=1.00 crash=0.00 reward=   76.28
+[ep  410] reward=   74.86 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.7225 actor_loss= -5.4932 Q=  53.65 noise=0.40 time=150.8s
+[ep  420] reward=   74.47 reached=4/4 collisions=  0 steps= 28 critic_loss=  0.7250 actor_loss= -5.4662 Q=  51.58 noise=0.38 time=158.7s
+[ep  430] reward=   75.08 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.6659 actor_loss= -5.4856 Q=  50.22 noise=0.37 time=165.0s
+[ep  440] reward=   76.29 reached=4/4 collisions=  0 steps= 23 critic_loss=  0.5999 actor_loss= -5.4944 Q=  51.46 noise=0.35 time=171.2s
+[ep  450] reward=   76.20 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.5829 actor_loss= -5.5138 Q=  48.38 noise=0.33 time=177.2s
+[eval  450] success=1.00 crash=0.00 reward=   76.57
+[ep  460] reward=   73.65 reached=4/4 collisions=  0 steps= 22 critic_loss=  0.5876 actor_loss= -5.5030 Q=  55.26 noise=0.32 time=183.1s
+[ep  470] reward=   76.11 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.6169 actor_loss= -5.5067 Q=  54.16 noise=0.30 time=189.1s
+[ep  480] reward=   76.46 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.6037 actor_loss= -5.5442 Q=  51.50 noise=0.28 time=194.3s
+[ep  490] reward=   75.61 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.4980 actor_loss= -5.5754 Q=  53.17 noise=0.27 time=200.7s
+[ep  500] reward=   74.96 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.5079 actor_loss= -5.5627 Q=  54.35 noise=0.25 time=205.9s
+[eval  500] success=1.00 crash=0.00 reward=   75.59
+[ep  510] reward=   76.29 reached=4/4 collisions=  0 steps= 25 critic_loss=  0.5332 actor_loss= -5.6085 Q=  53.95 noise=0.25 time=212.2s
+[ep  520] reward=   76.49 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4970 actor_loss= -5.6189 Q=  54.25 noise=0.25 time=217.5s
+[ep  530] reward=   77.27 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.6225 actor_loss= -5.6195 Q=  53.46 noise=0.25 time=224.1s
+[ep  540] reward=   75.88 reached=4/4 collisions=  0 steps= 20 critic_loss=  0.5556 actor_loss= -5.6667 Q=  53.49 noise=0.25 time=229.7s
+[ep  550] reward=   76.55 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.5111 actor_loss= -5.6795 Q=  53.75 noise=0.25 time=235.0s
+[eval  550] success=1.00 crash=0.00 reward=   76.93
+[ep  560] reward=   76.55 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.5040 actor_loss= -5.7396 Q=  56.40 noise=0.25 time=240.5s
+[ep  570] reward=   75.31 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.5325 actor_loss= -5.7423 Q=  54.98 noise=0.25 time=246.6s
+[ep  580] reward=   76.68 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.3638 actor_loss= -5.7567 Q=  52.91 noise=0.25 time=251.6s
+[ep  590] reward=   75.92 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.5281 actor_loss= -5.7385 Q=  54.54 noise=0.25 time=257.3s
+[ep  600] reward=   76.35 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4549 actor_loss= -5.7912 Q=  56.97 noise=0.25 time=262.9s
+[eval  600] success=1.00 crash=0.00 reward=   77.20
+[ep  610] reward=   76.65 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.3815 actor_loss= -5.7860 Q=  54.68 noise=0.25 time=268.2s
+[ep  620] reward=   75.94 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3925 actor_loss= -5.7877 Q=  54.46 noise=0.25 time=273.8s
+[ep  630] reward=   76.31 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4356 actor_loss= -5.7904 Q=  57.17 noise=0.25 time=278.6s
+[ep  640] reward=   76.18 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4442 actor_loss= -5.8229 Q=  57.65 noise=0.25 time=283.6s
+[ep  650] reward=   75.59 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3991 actor_loss= -5.8030 Q=  55.23 noise=0.25 time=288.9s
+[eval  650] success=1.00 crash=0.00 reward=   77.01
+[ep  660] reward=   75.80 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3969 actor_loss= -5.8124 Q=  57.43 noise=0.25 time=294.0s
+[ep  670] reward=   75.68 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4007 actor_loss= -5.8179 Q=  57.01 noise=0.25 time=299.2s
+[ep  680] reward=   75.64 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4225 actor_loss= -5.8243 Q=  56.68 noise=0.25 time=304.7s
+[ep  690] reward=   76.02 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.4132 actor_loss= -5.8274 Q=  58.50 noise=0.25 time=309.6s
+[ep  700] reward=   75.27 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4449 actor_loss= -5.8012 Q=  57.52 noise=0.25 time=315.1s
+[eval  700] success=1.00 crash=0.00 reward=   76.33
+[ep  710] reward=   76.38 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4019 actor_loss= -5.8425 Q=  55.96 noise=0.25 time=320.6s
+[ep  720] reward=   76.45 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.3680 actor_loss= -5.8300 Q=  56.97 noise=0.25 time=325.9s
+[ep  730] reward=   75.80 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3370 actor_loss= -5.8555 Q=  55.71 noise=0.25 time=330.9s
+[ep  740] reward=   76.80 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3629 actor_loss= -5.8700 Q=  57.42 noise=0.25 time=335.6s
+[ep  750] reward=   76.01 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3368 actor_loss= -5.8796 Q=  56.66 noise=0.25 time=340.7s
+[eval  750] success=1.00 crash=0.00 reward=   75.22
+[ep  760] reward=   76.54 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3663 actor_loss= -5.8753 Q=  56.97 noise=0.25 time=346.2s
+[ep  770] reward=   76.05 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.4169 actor_loss= -5.8603 Q=  56.92 noise=0.25 time=352.0s
+[ep  780] reward=   76.60 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.3932 actor_loss= -5.8639 Q=  57.08 noise=0.25 time=357.1s
+[ep  790] reward=   75.97 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3317 actor_loss= -5.8778 Q=  56.87 noise=0.25 time=362.2s
+[ep  800] reward=   76.19 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.3674 actor_loss= -5.8553 Q=  56.49 noise=0.25 time=367.4s
+[eval  800] success=1.00 crash=0.00 reward=   77.60
+[ep  810] reward=   76.19 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3745 actor_loss= -5.8707 Q=  57.21 noise=0.25 time=373.1s
+[ep  820] reward=   77.52 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3680 actor_loss= -5.8891 Q=  59.67 noise=0.25 time=378.5s
+[ep  830] reward=   75.61 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3138 actor_loss= -5.9078 Q=  57.91 noise=0.25 time=383.7s
+[ep  840] reward=   73.69 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.3467 actor_loss= -5.9180 Q=  58.65 noise=0.25 time=388.6s
+[ep  850] reward=   76.73 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2388 actor_loss= -5.9586 Q=  56.37 noise=0.25 time=393.9s
+[eval  850] success=1.00 crash=0.00 reward=   77.83
+[ep  860] reward=   77.22 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3171 actor_loss= -5.9209 Q=  56.95 noise=0.25 time=398.7s
+[ep  870] reward=   77.34 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2456 actor_loss= -5.9305 Q=  57.68 noise=0.25 time=404.2s
+[ep  880] reward=   76.69 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.3112 actor_loss= -5.9248 Q=  57.96 noise=0.25 time=410.9s
+[ep  890] reward=   77.08 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.3745 actor_loss= -5.9219 Q=  56.67 noise=0.25 time=417.2s
+[ep  900] reward=   77.51 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3234 actor_loss= -5.9464 Q=  58.17 noise=0.25 time=422.8s
+[eval  900] success=1.00 crash=0.00 reward=   76.95
+[ep  910] reward=   77.06 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3457 actor_loss= -5.9645 Q=  59.10 noise=0.25 time=427.3s
+[ep  920] reward=   77.36 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.3329 actor_loss= -5.9689 Q=  59.27 noise=0.25 time=432.4s
+[ep  930] reward=   77.72 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2844 actor_loss= -5.9827 Q=  58.38 noise=0.25 time=438.4s
+[ep  940] reward=   77.53 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3461 actor_loss= -5.9509 Q=  57.40 noise=0.25 time=443.3s
+[ep  950] reward=   78.13 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2995 actor_loss= -5.9711 Q=  59.80 noise=0.25 time=448.1s
+[eval  950] success=1.00 crash=0.00 reward=   77.50
+[ep  960] reward=   77.91 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3688 actor_loss= -5.9608 Q=  58.96 noise=0.25 time=453.7s
+[ep  970] reward=   77.81 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3348 actor_loss= -5.9662 Q=  59.98 noise=0.25 time=458.4s
+[ep  980] reward=   77.07 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3667 actor_loss= -5.9745 Q=  59.63 noise=0.25 time=466.1s
+[ep  990] reward=   77.20 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2851 actor_loss= -5.9775 Q=  60.51 noise=0.25 time=473.0s
+[ep 1000] reward=   78.15 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3846 actor_loss= -5.9933 Q=  60.27 noise=0.25 time=479.1s
+[eval 1000] success=1.00 crash=0.00 reward=   77.92
+[ep 1010] reward=   77.76 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2784 actor_loss= -5.9810 Q=  60.21 noise=0.25 time=484.3s
+[ep 1020] reward=   77.89 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3111 actor_loss= -5.9764 Q=  56.66 noise=0.25 time=489.5s
+[ep 1030] reward=   77.88 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2610 actor_loss= -6.0206 Q=  57.55 noise=0.25 time=495.1s
+[ep 1040] reward=   78.86 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2671 actor_loss= -6.0075 Q=  56.61 noise=0.25 time=501.2s
+[ep 1050] reward=   77.83 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2075 actor_loss= -6.0204 Q=  58.81 noise=0.25 time=506.6s
+[eval 1050] success=1.00 crash=0.00 reward=   78.23
+[ep 1060] reward=   78.34 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2296 actor_loss= -6.0171 Q=  57.63 noise=0.25 time=512.1s
+[ep 1070] reward=   77.72 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.3237 actor_loss= -6.0058 Q=  58.91 noise=0.25 time=517.4s
+[ep 1080] reward=   76.87 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2743 actor_loss= -6.0386 Q=  58.26 noise=0.25 time=523.3s
+[ep 1090] reward=   77.97 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3232 actor_loss= -6.0470 Q=  57.62 noise=0.25 time=529.2s
+[ep 1100] reward=   76.37 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2814 actor_loss= -6.0578 Q=  59.27 noise=0.25 time=534.1s
+[eval 1100] success=1.00 crash=0.00 reward=   77.15
+[ep 1110] reward=   77.54 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2631 actor_loss= -6.0578 Q=  59.76 noise=0.25 time=539.8s
+[ep 1120] reward=   76.21 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2183 actor_loss= -6.0565 Q=  60.62 noise=0.25 time=544.7s
+[ep 1130] reward=   77.12 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2303 actor_loss= -6.0665 Q=  60.67 noise=0.25 time=549.9s
+[ep 1140] reward=   78.28 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2335 actor_loss= -6.0599 Q=  62.57 noise=0.25 time=555.8s
+[ep 1150] reward=   77.59 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2478 actor_loss= -6.0806 Q=  59.58 noise=0.25 time=561.3s
+[eval 1150] success=1.00 crash=0.00 reward=   77.24
+[ep 1160] reward=   77.56 reached=4/4 collisions=  0 steps= 19 critic_loss=  0.2184 actor_loss= -6.0646 Q=  59.22 noise=0.25 time=566.9s
+[ep 1170] reward=   77.50 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2470 actor_loss= -6.0700 Q=  60.83 noise=0.25 time=572.2s
+[ep 1180] reward=   78.11 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2221 actor_loss= -6.0889 Q=  56.77 noise=0.25 time=577.3s
+[ep 1190] reward=   77.81 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2876 actor_loss= -6.0802 Q=  60.07 noise=0.25 time=583.0s
+[ep 1200] reward=   77.53 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3057 actor_loss= -6.1047 Q=  58.67 noise=0.25 time=588.9s
+[eval 1200] success=1.00 crash=0.00 reward=   76.83
+[ep 1210] reward=   77.17 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2465 actor_loss= -6.0786 Q=  59.67 noise=0.25 time=594.7s
+[ep 1220] reward=   77.80 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2885 actor_loss= -6.0993 Q=  59.74 noise=0.25 time=600.1s
+[ep 1230] reward=   78.02 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1806 actor_loss= -6.0951 Q=  58.94 noise=0.25 time=605.2s
+[ep 1240] reward=   77.51 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2077 actor_loss= -6.0824 Q=  60.23 noise=0.25 time=610.8s
+[ep 1250] reward=   77.45 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1935 actor_loss= -6.0981 Q=  59.63 noise=0.25 time=616.4s
+[eval 1250] success=1.00 crash=0.00 reward=   78.06
+[ep 1260] reward=   78.42 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2034 actor_loss= -6.1145 Q=  58.49 noise=0.25 time=621.3s
+[ep 1270] reward=   77.39 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1978 actor_loss= -6.0956 Q=  59.95 noise=0.25 time=626.3s
+[ep 1280] reward=   77.03 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2693 actor_loss= -6.1180 Q=  60.36 noise=0.25 time=631.4s
+[ep 1290] reward=   77.93 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2002 actor_loss= -6.1215 Q=  60.17 noise=0.25 time=636.2s
+[ep 1300] reward=   77.89 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2335 actor_loss= -6.1228 Q=  61.06 noise=0.25 time=641.7s
+[eval 1300] success=1.00 crash=0.00 reward=   78.14
+[ep 1310] reward=   77.53 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1866 actor_loss= -6.1349 Q=  59.97 noise=0.25 time=647.5s
+[ep 1320] reward=   78.64 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2796 actor_loss= -6.1190 Q=  60.07 noise=0.25 time=652.7s
+[ep 1330] reward=   78.72 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2911 actor_loss= -6.1255 Q=  61.56 noise=0.25 time=657.8s
+[ep 1340] reward=   77.80 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2020 actor_loss= -6.1122 Q=  60.80 noise=0.25 time=663.0s
+[ep 1350] reward=   78.06 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2208 actor_loss= -6.0832 Q=  60.80 noise=0.25 time=668.1s
+[eval 1350] success=1.00 crash=0.00 reward=   79.11
+[ep 1360] reward=   77.93 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2416 actor_loss= -6.0991 Q=  60.68 noise=0.25 time=673.4s
+[ep 1370] reward=   77.67 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2806 actor_loss= -6.1014 Q=  59.90 noise=0.25 time=679.1s
+[ep 1380] reward=   78.14 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2581 actor_loss= -6.1153 Q=  59.37 noise=0.25 time=684.6s
+[ep 1390] reward=   77.28 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2432 actor_loss= -6.1040 Q=  60.87 noise=0.25 time=690.0s
+[ep 1400] reward=   77.75 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2233 actor_loss= -6.0920 Q=  60.85 noise=0.25 time=695.3s
+[eval 1400] success=1.00 crash=0.00 reward=   78.18
+[ep 1410] reward=   77.53 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2095 actor_loss= -6.1302 Q=  60.70 noise=0.25 time=702.2s
+[ep 1420] reward=   78.06 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2098 actor_loss= -6.1496 Q=  59.21 noise=0.25 time=709.9s
+[ep 1430] reward=   77.43 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2286 actor_loss= -6.1456 Q=  60.75 noise=0.25 time=717.1s
+[ep 1440] reward=   77.28 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1767 actor_loss= -6.1290 Q=  60.50 noise=0.25 time=724.1s
+[ep 1450] reward=   78.15 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2786 actor_loss= -6.1646 Q=  59.65 noise=0.25 time=730.0s
+[eval 1450] success=1.00 crash=0.00 reward=   77.50
+[ep 1460] reward=   78.37 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2002 actor_loss= -6.1345 Q=  61.20 noise=0.25 time=735.0s
+[ep 1470] reward=   78.35 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2084 actor_loss= -6.1767 Q=  59.83 noise=0.25 time=739.8s
+[ep 1480] reward=   78.07 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1528 actor_loss= -6.1593 Q=  60.56 noise=0.25 time=744.6s
+[ep 1490] reward=   77.87 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1749 actor_loss= -6.1613 Q=  60.64 noise=0.25 time=749.2s
+[ep 1500] reward=   77.50 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2663 actor_loss= -6.1533 Q=  60.02 noise=0.25 time=754.1s
+[eval 1500] success=1.00 crash=0.00 reward=   77.79
+[ep 1510] reward=   78.72 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2446 actor_loss= -6.1568 Q=  59.99 noise=0.25 time=759.0s
+[ep 1520] reward=   78.61 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1455 actor_loss= -6.1741 Q=  60.08 noise=0.25 time=764.5s
+[ep 1530] reward=   77.60 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2522 actor_loss= -6.1820 Q=  60.28 noise=0.25 time=769.6s
+[ep 1540] reward=   77.21 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2089 actor_loss= -6.1804 Q=  60.35 noise=0.25 time=774.1s
+[ep 1550] reward=   77.98 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.1818 actor_loss= -6.1860 Q=  59.55 noise=0.25 time=779.5s
+[eval 1550] success=1.00 crash=0.00 reward=   78.45
+[ep 1560] reward=   77.55 reached=4/4 collisions=  0 steps= 15 critic_loss=  0.1919 actor_loss= -6.1614 Q=  59.00 noise=0.25 time=784.3s
+[ep 1570] reward=   78.25 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1953 actor_loss= -6.1741 Q=  58.03 noise=0.25 time=789.0s
+[ep 1580] reward=   77.39 reached=4/4 collisions=  0 steps= 18 critic_loss=  0.2396 actor_loss= -6.1604 Q=  59.90 noise=0.25 time=794.6s
+[ep 1590] reward=   77.73 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2156 actor_loss= -6.1629 Q=  61.88 noise=0.25 time=799.2s
+[ep 1600] reward=   78.26 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1889 actor_loss= -6.1904 Q=  62.50 noise=0.25 time=803.9s
+[eval 1600] success=1.00 crash=0.00 reward=   77.95
+[ep 1610] reward=   77.55 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.1910 actor_loss= -6.1898 Q=  61.31 noise=0.25 time=808.4s
+[ep 1620] reward=   78.35 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2716 actor_loss= -6.1617 Q=  61.66 noise=0.25 time=812.9s
+[ep 1630] reward=   78.03 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1658 actor_loss= -6.2149 Q=  61.52 noise=0.25 time=817.2s
+[ep 1640] reward=   77.59 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.1644 actor_loss= -6.1930 Q=  62.62 noise=0.25 time=822.8s
+[ep 1650] reward=   78.13 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2351 actor_loss= -6.1827 Q=  60.84 noise=0.25 time=828.4s
+[eval 1650] success=1.00 crash=0.00 reward=   77.96
+[ep 1660] reward=   77.32 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.2666 actor_loss= -6.1649 Q=  60.49 noise=0.25 time=834.3s
+[ep 1670] reward=   77.96 reached=4/4 collisions=  0 steps= 17 critic_loss=  0.3007 actor_loss= -6.1761 Q=  60.45 noise=0.25 time=839.4s
+[ep 1680] reward=   78.53 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2790 actor_loss= -6.2583 Q=  60.95 noise=0.25 time=844.4s
+[ep 1690] reward=   78.70 reached=4/4 collisions=  0 steps= 16 critic_loss=  0.2724 actor_loss= -6.2030 Q=  59.80 noise=0.25 time=849.8s
+
+
+[ep 1700] reward=   59.37 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2344 actor_loss= -6.2575 Q=  60.31 noise=0.25 time=857.7s
+    [fail] dist_to_goal=[0.75, 9.510000228881836, 0.5099999904632568, 0.36000001430511475] speed=[0.0, 0.0, 0.0, 0.0]
+[eval 1700] success=0.00 crash=0.00 reward=   58.91
+
+
+[ep 1710] reward=   59.13 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2727 actor_loss= -6.6473 Q=  63.23 noise=0.25 time=870.2s
+    [fail] dist_to_goal=[0.6399999856948853, 9.510000228881836, 0.6200000047683716, 0.5] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1720] reward=   59.19 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2905 actor_loss= -6.9952 Q=  66.11 noise=0.25 time=882.2s
+    [fail] dist_to_goal=[0.6100000143051147, 9.510000228881836, 0.699999988079071, 0.3400000035762787] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1730] reward=   -1.86 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1775 actor_loss= -7.3920 Q=  71.72 noise=0.25 time=894.3s
+    [fail] dist_to_goal=[10.529999732971191, 10.550000190734863, 8.510000228881836, 8.1899995803833] speed=[0.4099999964237213, 0.44999998807907104, 0.6600000262260437, 0.8700000047683716]
+[ep 1740] reward=   -1.59 reached=0/4 collisions=  2 steps=  6 critic_loss=  0.1948 actor_loss= -7.8317 Q=  73.12 noise=0.25 time=901.8s
+    [fail] dist_to_goal=[10.319999694824219, 10.520000457763672, 8.0600004196167, 8.6899995803833] speed=[0.2199999988079071, 0.44999998807907104, 0.6100000143051147, 0.800000011920929]
+[ep 1750] reward=   59.15 reached=3/4 collisions=  0 steps=100 critic_loss=  0.3444 actor_loss= -7.9188 Q=  77.32 noise=0.25 time=913.3s
+    [fail] dist_to_goal=[0.9200000166893005, 9.510000228881836, 0.5, 0.5] speed=[0.0, 0.0, 0.0, 0.0]
+[eval 1750] success=0.00 crash=0.00 reward=   59.05
+[ep 1760] reward=   59.46 reached=3/4 collisions=  0 steps=100 critic_loss=  0.4184 actor_loss= -8.2551 Q=  81.94 noise=0.25 time=925.7s
+    [fail] dist_to_goal=[0.3799999952316284, 9.510000228881836, 0.699999988079071, 0.6399999856948853] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1770] reward=   58.83 reached=3/4 collisions=  0 steps=100 critic_loss=  0.4567 actor_loss= -8.5007 Q=  74.30 noise=0.25 time=936.8s
+    [fail] dist_to_goal=[0.5899999737739563, 9.510000228881836, 0.8899999856948853, 0.8600000143051147] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1780] reward=   59.01 reached=3/4 collisions=  0 steps=100 critic_loss=  0.4149 actor_loss= -8.4875 Q=  70.42 noise=0.25 time=948.7s
+    [fail] dist_to_goal=[0.550000011920929, 9.510000228881836, 0.5, 0.6600000262260437] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1790] reward=   59.45 reached=3/4 collisions=  0 steps=100 critic_loss=  0.3978 actor_loss= -8.5647 Q=  91.31 noise=0.25 time=962.5s
+    [fail] dist_to_goal=[0.6200000047683716, 9.510000228881836, 0.5600000023841858, 0.44999998807907104] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1800] reward=   57.41 reached=3/4 collisions=  0 steps=100 critic_loss=  0.4457 actor_loss= -8.6347 Q=  78.08 noise=0.25 time=975.2s
+    [fail] dist_to_goal=[0.7099999785423279, 9.510000228881836, 0.9300000071525574, 0.07000000029802322] speed=[0.0, 0.0, 0.0, 0.0]
+[eval 1800] success=0.00 crash=1.00 reward=    1.89
+[ep 1810] reward=   60.01 reached=3/4 collisions=  0 steps=100 critic_loss=  0.5226 actor_loss= -8.4969 Q=  81.16 noise=0.25 time=985.2s
+    [fail] dist_to_goal=[0.3400000035762787, 9.510000228881836, 0.5400000214576721, 0.44999998807907104] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1820] reward=    4.21 reached=0/4 collisions=  2 steps=  9 critic_loss=  0.5593 actor_loss= -8.3328 Q=  82.56 noise=0.25 time=996.1s
+    [fail] dist_to_goal=[5.800000190734863, 8.210000038146973, 5.760000228881836, 6.329999923706055] speed=[0.800000011920929, 0.38999998569488525, 1.0, 1.0]
+[ep 1830] reward=   60.47 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2341 actor_loss= -8.1304 Q=  72.80 noise=0.25 time=1009.2s
+    [fail] dist_to_goal=[0.30000001192092896, 9.510000228881836, 0.5799999833106995, 0.5400000214576721] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1840] reward=   57.12 reached=3/4 collisions=  0 steps=100 critic_loss=  0.3019 actor_loss= -7.9897 Q=  79.22 noise=0.25 time=1022.5s
+    [fail] dist_to_goal=[0.6399999856948853, 13.4399995803833, 0.7099999785423279, 0.7900000214576721] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1850] reward=   57.09 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2690 actor_loss= -7.9135 Q=  80.77 noise=0.25 time=1035.4s
+    [fail] dist_to_goal=[0.8100000023841858, 13.4399995803833, 0.6000000238418579, 0.7099999785423279] speed=[0.0, 0.0, 0.0, 0.0]
+[eval 1850] success=0.00 crash=0.00 reward=   57.33
+[ep 1860] reward=   57.01 reached=3/4 collisions=  0 steps=100 critic_loss=  0.1697 actor_loss= -7.9523 Q=  76.87 noise=0.25 time=1046.1s
+    [fail] dist_to_goal=[0.6800000071525574, 13.4399995803833, 0.7599999904632568, 0.7799999713897705] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1870] reward=   57.80 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2070 actor_loss= -7.9076 Q=  75.81 noise=0.25 time=1057.7s
+    [fail] dist_to_goal=[0.4300000071525574, 13.4399995803833, 0.6800000071525574, 0.46000000834465027] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1880] reward=   49.41 reached=3/4 collisions=  2 steps= 18 critic_loss=  0.3043 actor_loss= -7.8707 Q=  78.01 noise=0.25 time=1068.7s
+    [fail] dist_to_goal=[0.5199999809265137, 13.420000076293945, 0.5699999928474426, 0.75] speed=[0.0, 0.23999999463558197, 0.6800000071525574, 0.0]
+[ep 1890] reward=   49.24 reached=3/4 collisions=  2 steps= 17 critic_loss=  0.3457 actor_loss= -7.9054 Q=  73.64 noise=0.25 time=1079.3s
+    [fail] dist_to_goal=[0.6200000047683716, 13.199999809265137, 0.5899999737739563, 0.8299999833106995] speed=[0.0, 0.3400000035762787, 0.8700000047683716, 0.0]
+[ep 1900] reward=   56.96 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2696 actor_loss= -7.9692 Q=  75.34 noise=0.25 time=1088.6s
+    [fail] dist_to_goal=[0.8399999737739563, 12.720000267028809, 0.9300000071525574, 0.09000000357627869] speed=[0.0, 0.05999999865889549, 0.0, 0.0]
+[eval 1900] success=0.00 crash=0.00 reward=   57.37
+[ep 1910] reward=   57.04 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2093 actor_loss= -8.0113 Q=  80.44 noise=0.25 time=1101.0s
+    [fail] dist_to_goal=[0.8399999737739563, 13.4399995803833, 0.7400000095367432, 0.5199999809265137] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1920] reward=   57.57 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2897 actor_loss= -7.9236 Q=  79.99 noise=0.25 time=1113.1s
+    [fail] dist_to_goal=[0.6899999976158142, 13.4399995803833, 0.46000000834465027, 0.7400000095367432] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1930] reward=   57.91 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2422 actor_loss= -7.9858 Q=  81.20 noise=0.25 time=1127.6s
+    [fail] dist_to_goal=[0.699999988079071, 13.4399995803833, 0.8100000023841858, 0.20000000298023224] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1940] reward=   62.55 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2207 actor_loss= -7.9729 Q=  80.50 noise=0.25 time=1142.2s
+    [fail] dist_to_goal=[0.800000011920929, 3.4800000190734863, 0.25999999046325684, 0.8299999833106995] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1950] reward=   62.49 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2304 actor_loss= -8.1208 Q=  80.79 noise=0.25 time=1154.9s
+    [fail] dist_to_goal=[0.8700000047683716, 3.109999895095825, 0.7300000190734863, 0.800000011920929] speed=[0.0, 0.029999999329447746, 0.0, 0.0]
+[eval 1950] success=0.00 crash=0.00 reward=   63.36
+[ep 1960] reward=   63.24 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2481 actor_loss= -8.1154 Q=  72.14 noise=0.25 time=1168.0s
+    [fail] dist_to_goal=[0.75, 2.930000066757202, 0.9900000095367432, 0.009999999776482582] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 1970] reward=   63.48 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2835 actor_loss= -8.0677 Q=  81.02 noise=0.25 time=1180.8s
+    [fail] dist_to_goal=[0.8199999928474426, 2.740000009536743, 0.14000000059604645, 0.1599999964237213] speed=[0.0, 0.019999999552965164, 0.0, 0.0]
+[ep 1980] reward=   62.92 reached=3/4 collisions=  0 steps=100 critic_loss=  0.3003 actor_loss= -8.0139 Q=  79.01 noise=0.25 time=1194.9s
+    [fail] dist_to_goal=[0.2800000011920929, 2.700000047683716, 0.5699999928474426, 0.6899999976158142] speed=[0.0, 0.029999999329447746, 0.0, 0.0]
+[ep 1990] reward=   62.32 reached=3/4 collisions=  0 steps=100 critic_loss=  0.3003 actor_loss= -7.9280 Q=  77.72 noise=0.25 time=1208.2s
+    [fail] dist_to_goal=[0.5600000023841858, 2.440000057220459, 0.5600000023841858, 0.6800000071525574] speed=[0.0, 0.0, 0.0, 0.0]
+[ep 2000] reward=   63.09 reached=3/4 collisions=  0 steps=100 critic_loss=  0.2679 actor_loss= -7.7600 Q=  77.99 noise=0.25 time=1219.7s
+    [fail] dist_to_goal=[0.3400000035762787, 3.630000114440918, 0.5199999809265137, 0.25] speed=[0.0, 0.1599999964237213, 0.0, 0.0]
+[eval 2000] success=0.00 crash=0.00 reward=   57.88
+[done] Training complete. Best eval: success=1.00 crash=0.00 reward=79.10
+
+C:\,,,Files\1_HYP\2_Deliverables\D_8\-HYP-MARF-CBS-Q_Learning\src\deteministic_deep_q_learning>

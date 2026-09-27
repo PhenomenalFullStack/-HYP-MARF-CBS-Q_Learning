@@ -89,7 +89,7 @@ class DQNAgent:
         return int(np.argmax(masked_q))
 
     def compute_reward(self, old_pos, new_pos, next_schedule_pos, delay, collision, goal):
-        """Same reward function as Q-Learning agent."""
+        """reward function"""
         reward = 0.0
         if collision:
             reward -= 10.0

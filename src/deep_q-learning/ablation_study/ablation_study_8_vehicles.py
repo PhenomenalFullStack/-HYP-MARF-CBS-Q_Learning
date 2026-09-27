@@ -1,5 +1,6 @@
 """
-ablation_study_8_vehicles.py: A script that changes one hyperparameter at a time (one factor at a time ablation), trains DQN, and records metrics.
+ablation_study_8_vehicles.py: A script that changes one hyperparameter at a time (one factor at a time ablation), 
+trains DQN, and records metrics.
 State Space: 8 Vehicles, 10x10 grid.
 """
 
