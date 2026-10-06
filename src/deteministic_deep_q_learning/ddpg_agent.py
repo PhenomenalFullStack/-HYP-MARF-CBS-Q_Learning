@@ -29,11 +29,14 @@ class DDPGAgent:
         self.target_noise_std = getattr(config, "TARGET_NOISE_STD", 0.2)
         self.target_noise_clip = getattr(config, "TARGET_NOISE_CLIP", 0.5)
 
+        # main actor
         self.actor = Actor(
             state_dim, action_dim,
             config.ACTION_LOW, config.ACTION_HIGH,
             hidden_dim=config.HIDDEN_DIM
         ).to(self.device)
+        
+        # slowly copying the actor
         self.actor_target = Actor(
             state_dim, action_dim,
             config.ACTION_LOW, config.ACTION_HIGH,
@@ -47,30 +50,37 @@ class DDPGAgent:
         self.critic2 = Critic(
             state_dim, action_dim, hidden_dim=config.HIDDEN_DIM
         ).to(self.device)
+        
+        # slow copy of Q1
         self.critic_target = Critic(
             state_dim, action_dim, hidden_dim=config.HIDDEN_DIM
         ).to(self.device)
+        
+        # slow copy of Q2
         self.critic2_target = Critic(
             state_dim, action_dim, hidden_dim=config.HIDDEN_DIM
         ).to(self.device)
 
+        # Make each target start as an exact copy of its main network
         self.actor_target.load_state_dict(self.actor.state_dict())
         self.critic_target.load_state_dict(self.critic.state_dict())
         self.critic2_target.load_state_dict(self.critic2.state_dict())
 
-        self.actor_opt = optim.Adam(
-            self.actor.parameters(), lr=config.ACTOR_LR
+        # 
+        self.actor_opt = optim.Adam( 
+            self.actor.parameters(), lr=config.ACTOR_LR # 1e-4: slow
         )
         # One optimiser over both critics. The two losses touch disjoint parameters, and
         # Adam is per-parameter, so this is equivalent to two separate optimisers.
         self.critic_opt = optim.Adam(
             list(self.critic.parameters()) + list(self.critic2.parameters()),
-            lr=config.CRITIC_LR
+            lr=config.CRITIC_LR # 3e-4: faster
         )
 
-        self.replay = ReplayBuffer(config.BUFFER_SIZE)
+        self.replay = ReplayBuffer(config.BUFFER_SIZE) # # shared memory, up to 500,000
 
         # One independent OU noise process per vehicle slot
+        # Ornstein-Uhlenbeck - push, brake. Exploration
         self.noises = [
             OUNoise(
                 size=action_dim,
@@ -151,6 +161,8 @@ class DDPGAgent:
             d = dones.reshape(target_q.shape)
             y = r + self.cfg.GAMMA * (1.0 - d) * target_q   # (1 - d): no bootstrapping past terminals
 
+
+        # Calculating the loss
         q1 = self.critic(states, actions)
         q2 = self.critic2(states, actions)
         assert q1.shape == y.shape and q2.shape == y.shape, (q1.shape, q2.shape, y.shape)
@@ -159,7 +171,8 @@ class DDPGAgent:
         loss2 = F.mse_loss(q2, y)
 
         self.critic_opt.zero_grad()
-        (loss1 + loss2).backward()
+        (loss1 + loss2).backward() # Back propagation
+        
         nn.utils.clip_grad_norm_(self.critic.parameters(), 1.0)    # clip each critic separately
         nn.utils.clip_grad_norm_(self.critic2.parameters(), 1.0)
         self.critic_opt.step()
